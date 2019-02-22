@@ -16,6 +16,7 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class Login implements Serializable {
+    
     private String username;
     private String password;
     private boolean loggedIn;
@@ -56,7 +57,7 @@ public class Login implements Serializable {
         
         String passhash = DBUtils.hash(password);
         
-        for  (User u : Users.getInstance().getUsers()) {
+        for (User u : Users.getInstance().getUsers()) {
             if (username.equals(u.getUsername()) 
                     && passhash.equals(u.getPasshash())) {
                 loggedIn = true;

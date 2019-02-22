@@ -60,20 +60,20 @@ public class Users {
     }
        
     private void getUsersFromDatabase() {
-        try{
-        Connection conn = DBUtils.getConnection();
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM users");
-        users = new ArrayList<>();
-        while (rs.next()) {
-            User u = new User (
+        try (Connection conn = DBUtils.getConnection()) {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+            users = new ArrayList<>();
+            while (rs.next()) {
+                User u = new User (
                     rs.getInt("id"),
                     rs.getString("username"),
                     rs.getString("passhash")
-            );
+                );
             users.add(u);   
-        }
-    } catch (SQLException ex) {
+            }
+        } 
+        catch (SQLException ex) {
             Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
             users = new ArrayList<>();
         }

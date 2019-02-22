@@ -10,11 +10,13 @@ package pkg;
  * @author c0719943
  */
 public class User {
+    
     private int id;
     private String username;
     private String passhash;
 
     public User(int id, String username, String passhash) {
+        
         this.id = id;
         this.username = username;
         this.passhash = passhash;
@@ -43,4 +45,5 @@ public class User {
     public void setPasshash(String passhash) {
         this.passhash = passhash;
     }   
+    
 }

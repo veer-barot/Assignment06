@@ -12,6 +12,7 @@ import java.sql.Timestamp;
  * @author c0719943
  */
 public class Post {
+    
     private int id;
     private int userId;
     private String title;
@@ -19,6 +20,7 @@ public class Post {
     private String contents;
 
     public Post(int id, int userId, String title, Timestamp createdTime, String contents) {
+        
         this.id = id;
         this.userId = userId;
         this.title = title;
@@ -66,5 +68,4 @@ public class Post {
         this.contents = contents;
     }
 
-   
 }

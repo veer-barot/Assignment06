@@ -24,6 +24,7 @@ import javax.inject.Named;
 @Named
 @ApplicationScoped
 public class Posts {
+    
     private List<Post> posts;
     private Post currentPost;
     
@@ -57,6 +58,7 @@ public class Posts {
         }
         return null;
     }
+    
     public String viewPost(Post p) {
         currentPost = p;
         return "viewPost";
@@ -96,7 +98,8 @@ public class Posts {
             pstmt.setString(3, currentPost.getContents());
             pstmt.executeUpdate();   
            }
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) {
             Logger.getLogger(Posts.class.getName()).log(Level.SEVERE, null, ex);
         }
         getPostsFromDatabase();
@@ -106,21 +109,22 @@ public class Posts {
     
     private void getPostsFromDatabase() {
         try{
-        Connection conn = DBUtils.getConnection();
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM posts");
-        posts = new ArrayList<>();
-        while (rs.next()) {
-            Post p = new Post (
-                rs.getInt("id"),
-                rs.getInt("user_id"),
-                rs.getString("title"),
-                rs.getTimestamp("created_time"),
-                rs.getString("contents")
-            );
-            posts.add(p);   
-        }
-    } catch (SQLException ex) {
+            Connection conn = DBUtils.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM posts");
+            posts = new ArrayList<>();
+            while (rs.next()) {
+                Post p = new Post (
+                    rs.getInt("id"),
+                    rs.getInt("user_id"),
+                    rs.getString("title"),
+                    rs.getTimestamp("created_time"),
+                    rs.getString("contents")
+                );
+                posts.add(p);   
+            }
+        } 
+        catch (SQLException ex) {
             Logger.getLogger(DBUtils.class.getName()).log(Level.SEVERE, null, ex);
             posts = new ArrayList<>();
         }
