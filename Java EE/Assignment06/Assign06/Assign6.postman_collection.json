@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "ce554831-749b-4efd-97ca-8d2cf14c1e6e",
+		"name": "Assign6",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/Assign6/api/product",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    <product>\n        <available>FALSE</available>\n        <description>New Thingy</description>\n        <manufacturerId>\n            <addressline1>5 81st Street</addressline1>\n            <addressline2>Suite 100</addressline2>\n            <city>Mountain View</city>\n            <email>happysearching@example.com</email>\n            <fax>408-555-0103</fax>\n            <manufacturerId>19985678</manufacturerId>\n            <name>Happy End Searching</name>\n            <phone>650-555-0102</phone>\n            <rep>John Snow</rep>\n            <state>CA</state>\n            <zip>94043</zip>\n        </manufacturerId>\n        <markup>8.25</markup>\n        <productCode>\n            <description>Software</description>\n            <discountCode>77</discountCode>\n            <prodCode>HW</prodCode>\n        </productCode>\n        <productId>99999999</productId>\n        <purchaseCost>1095.00</purchaseCost>\n        <quantityOnHand>800000</quantityOnHand>\n    </product>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/Assign6/api/product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Assign6",
+						"api",
+						"product"
+					]
+				},
+				"description": "Add a product to products"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/Assign6/api/manufacturer/69985678",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/Assign6/api/manufacturer/69985678",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Assign6",
+						"api",
+						"manufacturer",
+						"69985678"
+					]
+				},
+				"description": "Delete manufacturer"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/Assign6/api/productCode/MS",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    <productCode>\n        <description>Misc</description>\n        <discountCode>80</discountCode>\n        <prodCode>MS</prodCode>\n    </productCode>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/Assign6/api/productCode/MS",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Assign6",
+						"api",
+						"productCode",
+						"MS"
+					]
+				},
+				"description": "update product Code"
+			},
+			"response": []
+		}
+	]
+}

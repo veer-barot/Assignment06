@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="https://code.jquery.com/jquery.js"></script>
+        <script>
+            $(document).ready(function() {
+                var baseUrl = '/Assign06/api/productCode';
+                
+                function getProductCodes() {
+                   
+                     $.ajax({
+                        url: baseUrl,
+                        method: 'get',
+                        dataType: 'json',
+                        success: function (data) {
+                            $('#product-table').html('');
+                            $.each(data, function(idx, row) {
+                                newRow = '<tr><td>' + row.prodCode + '</td><td>'
+                                        + row.discountCode + '</td><td>' + row.description 
+                                        + '</td></tr>';
+                                $('#product-table').append(newRow);
+                            });
+                        },
+                        error: function (err) {
+                            alert("There was an error! check the logs.");
+                            console.log(err);
+                        }
+                    });
+                }
+                
+                function addProductCodes() {
+                    newProduct = {
+                        prodCode: $('#add-product-code').val(),
+                        discountCode: $('#add-discount-code').val(),
+                        description: $('#add-description').val(),
+                    };
+                    $.ajax({
+                        url: baseUrl,
+                        method: 'post',
+                        data: JSON.stringify(newProduct),
+                        contentType: 'application/json',
+                        success: getProductCodes,
+                        error: function (err) {
+                            alert("There was an error! check the logs.");
+                            console.log(err);
+                        }
+                    });
+                }
+                
+                function editProductCodes() {
+                    newProduct = {
+                        prodCode: $('#add-product-code').val(),
+                        discountCode: $('#add-discount-code').val(),
+                        description: $('#add-description').val()
+                    };
+                    $.ajax({
+                        url: baseUrl + '/' + $('#add-product-code').val(),
+                        method: 'put',
+                        data: JSON.stringify(newProduct),
+                        contentType: 'application/json',
+                        success: getProductCodes,
+                        error: function (err) {
+                            alert("There was an error! check the logs.");
+                            console.log(err);
+                        }
+                    });
+                }
+                
+                function deleteProductCodes() {
+                    $.ajax({
+                        url: baseUrl + '/' + $('#add-product-code').val(),
+                        method: 'delete',
+                        contentType: 'application/json',
+                        success: getProductCodes,
+                        error: function (err) {
+                            alert("There was an error! check the logs.");
+                            console.log(err);
+                        }
+                    });
+                }
+                
+                getProductCodes();
+                $('#add-product').click(addProductCodes);
+                $('#edit-product').click(editProductCodes);
+                $('#delete-product').click(deleteProductCodes);
+                
+            });
+        </script>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Code</th>
+                    <th>Discount Code</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody id="product-table">
+                
+            </tbody>
+        </table>
+        <div>
+         <label>Product Code <input id="add-product-code" /></label>
+        <label>Discount Code <input id="add-discount-code" /></label>
+        <label>Description <input id="add-description" /></label>
+        <button id="add-product">ADD</button>   
+        <button id="edit-product">EDIT</button>   
+        <button id="delete-product">DELETE</button>   
+        </div>
+    </body>
+</html>

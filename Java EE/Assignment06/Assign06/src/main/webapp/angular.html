@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+        <script>
+          angular.module('myApp',[]).controller('myController', function($scope, $http) {
+                 var baseUrl= '/Assign06/api/productCode/';
+                 $scope.productCodeList = [];
+                 function getProductCodes() {
+                    $http.get(baseUrl)
+                            .then(function(result) {
+                                $scope.productCodeList = result.data; 
+                    }, function(error) {
+                        alert('There was an error! check the logs!');
+                        console.log(error);
+                    });
+                }
+                $scope.addProduct = function() {
+                    $http.post(baseUrl, {prodCode: $scope.prodCode, discountCode: $scope.discountCode, description: $scope.description})
+                            .then(getProductCodes, function(error){
+                                alert('There was an error! check the logs!');
+                                console.log(error);
+                            });
+                };
+                
+                $scope.editProduct = function() {
+                    $http.put(baseUrl + $scope.prodCode, {prodCode: $scope.prodCode, discountCode: $scope.discountCode, description: $scope.description})
+                            .then(getProductCodes, function(error){
+                                alert('There was an error! check the logs!');
+                                console.log(error);
+                            });
+                };
+                
+                $scope.deleteProduct = function() {
+                    $http.delete(baseUrl + $scope.prodCode)
+                            .then(getProductCodes, function(error){
+                                alert('There was an error! check the logs!');
+                                console.log(error);
+                            });
+                };
+                
+                getProductCodes();
+             });   
+        </script>
+    </head>
+    <body ng-app="myApp" ng-controller="myController">
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Code</th>
+                    <th>Discount Code</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr ng-repeat="pc in productCodeList">
+                 <td>{{ pc.prodCode }}</td>
+                 <td>{{ pc.discountCode }}</td>
+                 <td>{{ pc.description }}</td>   
+                </tr>
+            </tbody>
+        </table>
+        <div>
+         <label>Product Code <input ng-model="prodCode" /></label>
+        <label>Discount Code <input ng-model="discountCode" /></label>
+        <label>Description <input ng-model="description" /></label>
+        <button ng-click="addProduct()">ADD</button>   
+        <button ng-click="editProduct()">EDIT</button>   
+        <button ng-click="deleteProduct()">DELETE</button>   
+        </div>
+    </body>
+</html>
